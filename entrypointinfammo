@@ -1,0 +1,30 @@
+local plr = game.Players.LocalPlayer
+spawn(function()
+while wait() do
+for i,v in pairs(plr.Status.Weapons:GetChildren()) do
+        if v.ClassName == "StringValue" then
+            v.ClipMax.Value = 100000000
+        end
+end
+end
+end)
+
+spawn(function()
+while wait() do
+for i,v in pairs(plr.Status.Weapons:GetChildren()) do
+        if v.ClassName == "StringValue" then
+            v.AmmoLoaded.Value = 100000000
+        end
+end
+end
+end)
+
+spawn(function()
+while wait() do
+for i, v in pairs(game:GetService("Players").LocalPlayer.Status.Ammo:GetDescendants()) do
+  if v.Name == "9mm" or v.Name == "4.6x30mm" or v.Name == "12 gauge" or v.Name == "7.62x51mm" then
+    v.Value = 100000000
+  end
+end
+end
+end)
