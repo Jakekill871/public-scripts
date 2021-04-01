@@ -1,0 +1,59 @@
+_G.NPCName = "Bandit" -- only for if you're doing npc, you can do partial.
+_G.HitboxToggled = true -- set to false if you want off.
+_G.Type = 2 -- 1 means all players; 2 means NPCs, 3 Means both.
+_G.Size = 100
+
+function Player(Toggled)
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+if v.Name ~= game.Players.LocalPlayer.Name then
+pcall(function()
+if _G.AlreadyDone ~= true then
+_G.AlreadyDone = true
+_G.OGPSize = v.Character.HumanoidRootPart.Size
+end
+end)
+if Toggled == false then
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.OGPSize, _G.OGPSize, _G.OGPSize)
+else
+v.Character.HumanoidRootPart.CanCollide = false
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.Size, _G.Size, _G.Size)
+v.Character.HumanoidRootPart.Color = Color3.new(193, 193, 193)
+v.Character.HumanoidRootPart.Transparency = 0.8
+end
+end
+end
+end
+
+function NPC(Toggled)
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+if v:FindFirstChild("HumanoidRootPart") and string.match(v.Name:lower(),_G.NPCName:lower()) or v:FindFirstChild("HumanoidRootPart") and v.Name == _G.NPCName then
+pcall(function()
+if _G.AlreadyDone2 ~= true then
+_G.AlreadyDone2 = true
+_G.OGNSize = v.HumanoidRootPart.Size
+end
+end)
+if Toggled == false then
+v.HumanoidRootPart.Size = Vector3.new(_G.OGNSize, _G.OGNSize, _G.OGNSize)
+else
+v.HumanoidRootPart.CanCollide = false
+v.HumanoidRootPart.Size = Vector3.new(_G.Size, _G.Size, _G.Size)
+v.HumanoidRootPart.Color = Color3.new(193, 193, 193)
+v.HumanoidRootPart.Transparency = 0.8
+end
+end
+end
+end
+
+if _G.HitboxToggled == true then
+if _G.Type == 1 then
+repeat Player(true) wait(1) until _G.HitboxToggled == false
+elseif _G.Type == 2 then
+repeat NPC(true) wait(1) until _G.HitboxToggled == false
+elseif _G.Type == 3 then
+repeat Player(true) NPC(true) wait(1) until _G.HitboxToggled == false
+end
+else
+Player(false)
+NPC(false)
+end
