@@ -16,7 +16,7 @@ local Mouse = Plr:GetMouse()
 function Autofarm(NPC)
 _G.NPC = NPC
 spawn(function()
-while wait() do
+while wait(0.2) do
 if _G.AutoPunch == true then
 mouse1click()
 wait(0.3)
@@ -35,7 +35,7 @@ end
 end)
 
 if v.Name == _G.NPC or v.Name == _G.NPC2 or v.Name == _G.NPC3 then
-while wait() do
+while wait(0.2) do
 spawn(function()
 if _G.CurrentTarget:FindFirstChild("Humanoid") then
 if _G.CurrentTarget.Humanoid.Health < 0.1 then
@@ -177,7 +177,7 @@ end
 function AutoBarrel()
 if _G.Autofarm ~= true then
 _G.Speed2 = _G.Speed
-while wait() do
+while wait(0.5) do
 _G.Speed = 10
 if _G.AutoBarrel == true then
 To(Vector3.new(-550, 20, -4400))
