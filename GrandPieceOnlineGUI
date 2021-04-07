@@ -246,7 +246,7 @@ if _G.AlrExecuted ~= true then
 _G.AlrExecuted = true
 pcall(function()
 _G.Running = false
-i = hookfunction(wait, function(v) if _G.Running == true then if _G.HookWait ~= true then return i() else return i(v) end else return i(v) end end)
+i = hookfunction(wait, function(v) if _G.Running == true then if _G.HookWait ~= true then return i(0.1) else return i(v) end else return i(v) end end)
 end)
 
 spawn(function()
@@ -720,7 +720,7 @@ Dropdown.BackgroundColor3 = Color3.new(1, 1, 1)
 Dropdown.BackgroundTransparency = 1
 Dropdown.BorderSizePixel = 0
 Dropdown.Position = UDim2.new(-0.055555556, 0, 0.0833333284, 0)
-Dropdown.Size = UDim2.new(0, 200, 0, 20)
+Dropdown.Size = UDim2.new(0, 350, 0, 20)
 Dropdown.ZIndex = 2
 Dropdown.Font = Enum.Font.GothamBold
 Dropdown.Text = "      Dropdown"
