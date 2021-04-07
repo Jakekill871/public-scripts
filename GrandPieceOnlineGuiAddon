@@ -1,4 +1,4 @@
--- You put this in your auto execute.
+-- You put this in your auto execute; the function To() is here so you can use it if you feel like it.
 _G.Interval = 0.1 -- basically how long it waits before you're loaded in
 _G.R1BPSG9wVW50aWxERkZvdW5k = true -- this is the toggle
 
