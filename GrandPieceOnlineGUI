@@ -2850,7 +2850,7 @@ Tab5:AddSwitch("Auto Punch/Click(For Auto Farm)", function(autoclicktoggle)
         if autoclicktoggle == true then
         wait(1)
         _G.AutoPunch = true
-        elseif autoclicktoggle == false then
+        else
         _G.AutoPunch = false
         end
 end)
