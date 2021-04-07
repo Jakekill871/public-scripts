@@ -1,0 +1,46 @@
+-- You put this in your auto execute.
+_G.Interval = 0.1 -- basically how long it waits before you're loaded in
+_G.R1BPSG9wVW50aWxERkZvdW5k = true -- this is the toggle
+
+function To(position) -- this is all walmort's.
+local Chr = game.Players.LocalPlayer.Character
+if Chr ~= nil then
+local ts = game:GetService("TweenService")
+local char = game.Players.LocalPlayer.Character
+local hm = char.HumanoidRootPart
+local dist = (hm.Position - position).magnitude
+_G.tweenspeed = dist/100
+local ti = TweenInfo.new(tonumber(_G.tweenspeed), Enum.EasingStyle.Linear)
+local tp = {CFrame = CFrame.new(position)}
+ts:Create(hm, ti, tp):Play()
+end
+end
+
+function DFCheck()
+wait(_G.Interval)
+for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+if v.ClassName == "Tool" then
+if v:FindFirstChild("Owner") and v:FindFirstChild("FruitEater") then
+if v.Owner.Value == nil then
+_G.Found = true
+_G.FoundItem = v
+end
+end
+end
+end
+if _G.Found == true then
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Jakekill871/public-scripts/master/GrandPieceOnlineGUI'),true))()
+-- use above to find it.
+elseif _G.Found ~= true then
+game:GetService('TeleportService'):Teleport(1730877806)
+end
+end
+
+if _G.R1BPSG9wVW50aWxERkZvdW5k == true then
+repeat wait() until game:IsLoaded() == true
+if game.PlaceId == 3978370137 then
+DFCheck()
+elseif game.PlaceId == 1730877806 then
+game:GetService('TeleportService'):Teleport(3978370137)
+end
+end
