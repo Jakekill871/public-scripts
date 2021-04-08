@@ -1,54 +1,43 @@
--- You put this in your auto execute; the function To() is here so you can use it if you feel like it.
-_G.Interval = 0.1 -- basically how long it waits before you're loaded in
-_G.R1BPSG9wVW50aWxERkZvdW5k = true -- this is the toggle
-
-function To(position) -- this is all walmort's.
-local Chr = game.Players.LocalPlayer.Character
-if Chr ~= nil then
-local ts = game:GetService("TweenService")
-local char = game.Players.LocalPlayer.Character
-local hm = char.HumanoidRootPart
-local dist = (hm.Position - position).magnitude
-_G.tweenspeed = dist/100
-local ti = TweenInfo.new(tonumber(_G.tweenspeed), Enum.EasingStyle.Linear)
-local tp = {CFrame = CFrame.new(position)}
-ts:Create(hm, ti, tp):Play()
-end
-end
-
-function DFCheck()
-wait(_G.Interval)
-for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-if v.ClassName == "Tool" then
-if v:FindFirstChild("Owner") and v:FindFirstChild("FruitEater") then
-if v.Owner.Value == nil then
-_G.Found = true
-_G.FoundItem = v
-end
-end
-end
-end
-if _G.Found == true then
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/Jakekill871/public-scripts/master/GrandPieceOnlineGUI'),true))()
--- use above to find it.
-elseif _G.Found ~= true then
-game:GetService('TeleportService'):Teleport(1730877806)
-end
-end
-
-if _G.R1BPSG9wVW50aWxERkZvdW5k == true then
-repeat wait() until game:IsLoaded() == true
-if game.PlaceId == 3978370137 then
-DFCheck()
-elseif game.PlaceId == 1730877806 then
-game:GetService('TeleportService'):Teleport(3978370137)
-end
-end
-
---[[ This Ignores Suke Fruit.
 -- You put this in your auto execute.
+-- webhook script is from dolfin2 on v3rm
 _G.Interval = 0.1 -- basically how long it waits before you're loaded in
+_G.IgnoreSuke = false
+_G.Webhook = "None"
 _G.R1BPSG9wVW50aWxERkZvdW5k = true -- this is the toggle
+local HttpService = game:GetService("HttpService");
+
+function fireButton1(button)
+    for i,signal in next, getconnections(button.MouseButton1Click) do
+        signal:Fire()
+    end
+    for i,signal in next, getconnections(button.MouseButton1Down) do
+        signal:Fire()
+    end
+    for i,signal in next, getconnections(button.Activated) do
+        signal:Fire()
+    end
+end
+
+function SendMessage(Webhook, Message, Botname)
+    local Name;
+    local WakeUp = game:HttpGet("http://buritoman69.glitch.me");
+    local API = "http://buritoman69.glitch.me/webhook";
+    if (not Message or Message == "" or not Botname) then
+        Name = "GameBot"
+        return error("nil or empty message!")
+    else
+        Name = Botname;
+    end
+    local Body = {
+        ['Key'] = tostring("applesaregood"),
+        ['Message'] = tostring(Message),
+        ['Name'] = Name,
+        ['Webhook'] = _G.Webhook    
+    }
+    Body = HttpService:JSONEncode(Body);
+    local Data = game:HttpPost(API, Body, false, "application/json")
+    return Data or nil;
+end
 
 function To(position) -- this is all walmort's.
 local Chr = game.Players.LocalPlayer.Character
@@ -77,9 +66,15 @@ end
 end
 end
 if _G.Found == true then
-if _G.FoundItem.Name ~= "Suke" then
+if _G.FoundItem.Name == "Suke" and _G.IgnoreSuke == true then
+print('LMAO YOU GOT SUKE WHEN YOU DIDNT WANT IT')
+elseif _G.FoundItem.Name == "Suke" and _G.IgnoreSuke == false or _G.FoundItem.Name ~= "Suke" and _G.IgnoreSuke == true then
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/Jakekill871/public-scripts/master/GrandPieceOnlineGUI'),true))()
 -- use above to find it.
+if _G.Webhook ~= "None" then
+local MessagetoSend = table.concat({"You're in a server with a", _G.FoundItem.Name, "Fruit"}, " ")
+SendMessage(_G.Webhook, MessagetoSend, "DF Notifier")
+end
 else
 game:GetService('TeleportService'):Teleport(1730877806)
 end
@@ -93,7 +88,11 @@ repeat wait() until game:IsLoaded() == true
 if game.PlaceId == 3978370137 then
 DFCheck()
 elseif game.PlaceId == 1730877806 then
-game:GetService('TeleportService'):Teleport(3978370137)
+game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
+repeat wait()
+fireButton1(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Play)
+wait(1)
+fireButton1(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Sail)
+until true == false
 end
 end
-]]
