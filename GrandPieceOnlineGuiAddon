@@ -67,7 +67,7 @@ end
 end
 if _G.Found == true then
 if _G.FoundItem.Name == "Suke" and _G.IgnoreSuke == true then
-print('LMAO YOU GOT SUKE WHEN YOU DIDNT WANT IT')
+game:GetService('TeleportService'):Teleport(1730877806)
 elseif _G.FoundItem.Name == "Suke" and _G.IgnoreSuke == false or _G.FoundItem.Name ~= "Suke" and _G.IgnoreSuke == true then
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/Jakekill871/public-scripts/master/GrandPieceOnlineGUI'),true))()
 -- use above to find it.
