@@ -1,0 +1,48 @@
+pcall(function()
+for i,v in pairs(game:GetService("Workspace").Locations:GetChildren()) do
+if v.Name == "The Outskirts" or v.Name == "Train Station" or v.Name == "The Bar" or v.Name == "Heaven Arena" or v.Name == "The Tallest Peak" then
+v:Destroy()
+else
+v.Position = Vector3.new(v.Position.x, v.Position.y - 5, v.Position.z)
+end
+end
+end)
+
+pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MidnightKittenCat/script-idk/main/YBA.lua"))()
+end)
+
+pcall(function()
+wait(2)
+for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+if v:FindFirstChild("Main") then
+_G.GUI = v
+end
+end
+end)
+
+pcall(function()
+for i=1, 4 do
+_G.GUI.Main.pages.Pages.Page.Name = table.concat({"Page", i}, " ")
+end
+end)
+
+pcall(function()
+for i,v in pairs(_G.Main.pages.Pages["Page 3"].sectionFrame.sectionInners:GetChildren()) do
+if v.ClassName == "TextButton" then
+_G.GUI.Main.pages.Pages["Page 3"].sectionFrame.sectionInners["Eli's Pizzeria"].MouseButton1Click:Connect(function()
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+if v:IsA("BasePart") then
+if v.CanCollide == true then
+spawn(function()
+v.CanCollide = false
+wait(5)
+v.CanCollide = true
+end)
+end
+end
+end
+end)
+end
+end
+end)
