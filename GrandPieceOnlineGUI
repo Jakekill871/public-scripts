@@ -105,7 +105,7 @@ for i,v in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
 if v.Name == NPC3 then
 while true do
 if v.Name == NPC3 then
-if _G.Quest == true and game:GetService("Players").LocalPlayer.PlayerGui.Quest.Quest.Visible == false then
+if _G.Quest1 == true and game:GetService("Players").LocalPlayer.PlayerGui.Quest.Quest.Visible == false then
 _G.Autofarm = false
 wait(1)
 repeat
@@ -245,8 +245,8 @@ end
 if _G.AlrExecuted ~= true then
 _G.AlrExecuted = true
 pcall(function()
-_G.Running = false
-i = hookfunction(wait, function(v) if _G.Running == true then if _G.HookWait ~= true then return i(0.1) else return i(v) end else return i(v) end end)
+_G.Running1 = false
+i = hookfunction(wait, function(v) if _G.Running1 == true then if _G.HookWait ~= true then return i(0.1) else return i(v) end else return i(v) end end)
 end)
 
 spawn(function()
@@ -2480,10 +2480,10 @@ do -- Example UI
 		end)
 		
 		Tab2:AddSwitch("Hook wait() (It allows you to do most things faster)", function(value7)
-        if _G.Running == false then
-        _G.Running = true
-        elseif _G.Running == true then
-        _G.Running = false
+        if _G.Running1 == false then
+        _G.Running1 = true
+        elseif _G.Running1 == true then
+        _G.Running1 = false
         end
 		end)
     
@@ -2783,10 +2783,10 @@ end)
 
 local Dropdown4 = Tab5:AddDropdown("Auto Quest(Near You; Use No Fall Damage)", function(NPC2)
 			if NPC2 ~= "None" then
-			_G.Quest = true
+			_G.Quest1 = true
 			Quest(NPC2)
 			else
-			_G.Quest = false
+			_G.Quest1 = false
 			end
 end)
 spawn(function()
