@@ -3,7 +3,7 @@
 _G.Interval = 0.1 -- basically how long it waits before you're loaded in
 _G.IgnoreSuke = false
 _G.Webhook = "None"
-_G.R1BPSG9wVW50aWxERkZvdW5k = true -- this is the toggle
+_G.R1BPSG9wVW50aWxERkZvdW5k1 = true -- this is the toggle
 local HttpService = game:GetService("HttpService");
 
 function fireButton1(button)
@@ -83,7 +83,7 @@ game:GetService('TeleportService'):Teleport(1730877806)
 end
 end
 
-if _G.R1BPSG9wVW50aWxERkZvdW5k == true then
+if _G.R1BPSG9wVW50aWxERkZvdW5k1 == true then
 repeat wait() until game:IsLoaded() == true
 if game.PlaceId == 3978370137 then
 DFCheck()
