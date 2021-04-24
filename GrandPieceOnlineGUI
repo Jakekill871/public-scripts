@@ -1,5 +1,4 @@
 -- me finding a devil fruits with devil fruit finder. https://gyazo.com/a3a3c770b737220da82cadf658300224 https://gyazo.com/b551d63b50c7fc9f6aeb3ef609683d86 https://gyazo.com/cb6a5c3b08f440228416cd01f86c3425
-_G.mouse1click = true -- change this depending on your exploit, if you use krnl then set this to true.
 _G.AutoEquip = "Melee" -- dont mess with this.
 _G.NPC2 = "Bald" -- dont mess with this
 _G.NPC3 = "Bald" -- dont mess with this
@@ -16,27 +15,11 @@ local Mouse = Plr:GetMouse()
 
 function punch()
 spawn(function()
-if _G.Punching ~= true and _G.AutoPunch == true and _G.MovingTarget ~= nil then
-_G.Punching = true
+if _G.AutoPunch == true then
 _G.Distance = -3
-local args = {
-    [1] = false,
-    [2] = "Melee"
-}
-game:GetService("ReplicatedStorage").Events.Block:InvokeServer(unpack(args))
-if _G.mouse1click ~= true then
-local bald = game:GetService("UserInputService"):GetGamepadState(Enum.UserInputType.Gamepad1)[1]; bald.UserInputType = Enum.UserInputType.MouseButton1; _G.thing(bald,false)
-else
 mouse1click()
-end
 wait(0.1)
-local args = {
-    [1] = true,
-    [2] = "Melee"
-}
-game:GetService("ReplicatedStorage").Events.Block:InvokeServer(unpack(args))
 _G.Distance = -8
-_G.Punching = false
 wait(0.2)
 end
 end)
@@ -51,10 +34,6 @@ if v.Name == _G.NPC or v.Name == _G.NPC2 or v.Name == _G.NPC3 then
 if _G.Closest > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude then
 _G.Closest = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
 _G.CurrentTarget = v
-wait(5)
-if _G.MovingTarget == nil then
-_G.MovingTarget = v
-end
 end
 end
 end)
@@ -62,13 +41,20 @@ end)
 if v.Name == _G.NPC or v.Name == _G.NPC2 or v.Name == _G.NPC3 then
 while wait(0.2) do
 spawn(function()
+if _G.Punching ~= true then
+_G.Punching = true
+else
+_G.Punching = false
+end
+end)
+
+spawn(function()
 if _G.CurrentTarget:FindFirstChild("Humanoid") then
 if _G.CurrentTarget.Humanoid.Health and _G.CurrentTarget.Humanoid.Health < 0.1 then
 for _,z in pairs(game:GetService("Workspace").NPCs:GetChildren()) do
 if z.Name == _G.NPC or z.Name == _G.NPC2 or z.Name == _G.NPC3 then
 if 0 < (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - z.HumanoidRootPart.Position).magnitude then
 _G.CurrentTarget = z
-_G.MovingTarget = z
 end
 end
 end
@@ -87,7 +73,6 @@ local npcpos = b.HumanoidRootPart.Position
 if npcpos.x-20<playpos.x and playpos.y<npcpos.y+20 and npcpos.z-20<playpos.z then
 if b.Info.SpawnCFrame.Value ~= b.realPos.Value then
 _G.CurrentTarget = b
-_G.MovingTarget = b
 end
 end
 end
@@ -97,7 +82,7 @@ end
 end)
 
 spawn(function()
-if _G.Autofarm1 == true then
+if _G.Autofarm == true then
 if v.Name == _G.NPC or v.Name == _G.NPC2 or v.Name == _G.NPC3 then
 wait()
 local Player = game:GetService("Players").LocalPlayer
@@ -108,21 +93,16 @@ local Player = game:GetService("Players").LocalPlayer
         end
     end)
 wait()
-if _G.MovingTarget == nil then
-_G.pos = (_G.CurrentTarget.HumanoidRootPart.CFrame + _G.CurrentTarget.HumanoidRootPart.CFrame.lookVector*_G.Distance)
-_G.pos2 = _G.CurrentTarget.HumanoidRootPart.Position
-else
-_G.pos = (_G.MovingTarget.HumanoidRootPart.CFrame + _G.MovingTarget.HumanoidRootPart.CFrame.lookVector*_G.Distance)
-_G.pos2 = _G.MovingTarget.HumanoidRootPart.Position
-end
-if 50 > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - _G.pos2).magnitude then
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(_G.pos.x, _G.pos.y + 5, _G.pos.z))
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(_G.pos2.x, _G.pos2.y + 5, _G.pos2.z)))
+pos = (_G.CurrentTarget.HumanoidRootPart.CFrame + _G.CurrentTarget.HumanoidRootPart.CFrame.lookVector*_G.Distance)
+pos2 = _G.CurrentTarget.HumanoidRootPart.Position
+if 50 > (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - _G.CurrentTarget.HumanoidRootPart.Position).magnitude then
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(pos.x, pos.y + 5, pos.z))
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, Vector3.new(pos2.x, pos2.y + 5, pos2.z)))
 punch()
 else
 local bruh2 = _G.Speed
 _G.Speed = 5
-To(Vector3.new(_G.pos.x, _G.pos.y, _G.pos.z))
+To(Vector3.new(pos.x, pos.y, pos.z))
 _G.Speed = bruh2
 end
 end
@@ -146,7 +126,7 @@ if v.Name == NPC3 then
 while true do
 if v.Name == NPC3 then
 if _G.Quest1 == true and game:GetService("Players").LocalPlayer.PlayerGui.Quest.Quest.Visible == false then
-_G.Autofarm1 = false
+_G.Autofarm = false
 wait(1)
 repeat
 pos4 = (v.HumanoidRootPart.CFrame + v.HumanoidRootPart.CFrame.lookVector*7)
@@ -156,7 +136,6 @@ else
 To(Vector3.new(pos4.x, pos4.y, pos4.z))
 end
 wait(2)
-if v.Name ~= "Daph" then
 local args = {
     [1] = {
         [1] = "takequest",
@@ -164,18 +143,9 @@ local args = {
     }
 }
 game:GetService("ReplicatedStorage").Events.Quest:InvokeServer(unpack(args))
-else
-local args = {
-    [1] = {
-        [1] = "takequest",
-        [2] = table.concat({"Help", "Raphtalia"}, " ")
-    }
-}
-game:GetService("ReplicatedStorage").Events.Quest:InvokeServer(unpack(args))
-end
 wait(0.5)
 until game:GetService("Players").LocalPlayer.PlayerGui.Quest.Quest.Visible == true
-_G.Autofarm1 = _G.AF
+_G.Autofarm = _G.AF
 end
 end
 wait(5)
@@ -228,10 +198,10 @@ end)
 end
 
 function AutoBarrel()
-if _G.Autofarm1 ~= true then
+if _G.Autofarm ~= true then
 _G.Speed2 = _G.Speed
 while wait(0.5) do
-_G.Speed = 9
+_G.Speed = 10
 if _G.AutoBarrel == true then
 To(Vector3.new(-550, 20, -4400))
 game:GetService("Workspace").NPCs:WaitForChild("Barrel Seller")
@@ -388,7 +358,7 @@ mt.__namecall = newcclosure(function(self, ...)
     local method = getnamecallmethod()
     local args = {...}
 
-    if method == "InvokeServer" and args[1] == "Soru" and _G.Running2 == true or method == "InvokeServer" and args[1] == "Geppo" and _G.Running2 == true or method == "InvokeServer" and args[1] == "Sky Walk" and _G.Running2 == true or method == "FireServer" and args[1] == "drown" and _G.Running2 == true then
+    if method == "InvokeServer" and args[1] == "Soru" and _G.Running2 == true or method == "InvokeServer" and args[1] == "Geppo" and _G.Running2 == true then
         spawn(function()
         wait(0.2)
         _G.HookWait = false
@@ -398,29 +368,6 @@ mt.__namecall = newcclosure(function(self, ...)
     end
     return namecall(self, ...)
 end)
-end)
-
-spawn(function()
-while true do
-if _G.mouse1click ~= true then
-for i,v in next, getgc() do
-if type(v) == 'function' and getfenv(v).script == game:GetService("Players").LocalPlayer.Backpack:FindFirstChild('MeleeScript') then
-local therightgoddamnscript = pcall(function() getconstant(v,85) end)
-if therightgoddamnscript == true then
-_G.thing = v
-end
-end
-end
-end
-if _G.Running1 == true then
-_G.Running3 = true
-_G.Running1 = false
-end
-spawn(function()
-wait(5)
-end)
-_G.Running1 = true
-end
 end)
 
 spawn(function()
@@ -2595,7 +2542,7 @@ do -- Example UI
         end
 		end)
     
-        Tab:AddSwitch("Infinite Roll/Soru/Geppo/Bubble/SkyWalk", function(value10)
+        Tab:AddSwitch("Infinite Roll/Soru/Geppo", function(value10)
         if _G.Running2 == false then
         _G.Running2 = true
         elseif _G.Running2 == true then
@@ -2642,6 +2589,10 @@ To(Vector3.new(_G.ResponseX, 10, _G.ResponseZ))
 elseif inp == "Sandora" then
 _G.ResponseX = -1200
 _G.ResponseZ = 1200
+To(Vector3.new(_G.ResponseX, 10, _G.ResponseZ))
+elseif inp == "Coco Island" then
+_G.ResponseX = 1
+_G.ResponseZ = 1
 To(Vector3.new(_G.ResponseX, 10, _G.ResponseZ))
 elseif inp == "Desert Bandit" then
 _G.ResponseX = -1200
@@ -2777,12 +2728,12 @@ end
 		
 		local Dropdown3 = Tab5:AddDropdown("NPCs In the Area(Don't use hook wait)", function(NPC)
 			if NPC ~= "None" then
-			_G.Autofarm1 = true
+			_G.Autofarm = true
 			_G.AF = true
 			Autofarm(NPC)
 			else
 			_G.AF = false
-			_G.Autofarm1 = false
+			_G.Autofarm = false
 			end
 		end)
 		spawn(function()
