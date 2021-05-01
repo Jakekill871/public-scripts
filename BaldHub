@@ -2550,6 +2550,8 @@ do -- Example UI
 	do -- Elements
 		Tab:AddLabel("Made by Jakekill871#9002")
 		
+		Tab:AddLabel("Uses Infinite Yields ESP and Singularities UI Lib")
+		
 		Tab:AddLabel("Tween by Walmort")
 		
 		Tab:AddLabel("My discord is SqgAa9Fbft")
