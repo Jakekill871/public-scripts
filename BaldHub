@@ -11,7 +11,7 @@ _G.NPCTweenSpeed = 15
 _G.PSize = 100
 _G.NSize = 100
 
-WalkspeedOff = {2377868063, 6172932937, 292439477}
+WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691}
 
 function tycoonbutton(all)
 _G.NotRunning = false
