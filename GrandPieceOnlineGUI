@@ -16,10 +16,8 @@ local Mouse = Plr:GetMouse()
 function punch()
 spawn(function()
 if _G.AutoPunch == true then
-_G.Distance = -3
 mouse1click()
 wait(0.1)
-_G.Distance = -8
 wait(0.2)
 end
 end)
