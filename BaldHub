@@ -1,4 +1,5 @@
 -- games I recommend. KAT, Metaverse Shoot Out, Phantom Forces, Bad Buissness, Big Paintball, Typical Tycoons(God Tycoon, Anime Tycoon, ETC), Any RPG(Ex. Blox Piece, King Legacy, Swordburst 2, ETC)
+-- Added support to a few games (Phantom Forces and Bad Business)
 
 _G.Distance = -3
 _G.SAPType = 3
@@ -10,9 +11,7 @@ _G.NPCTweenSpeed = 15
 _G.PSize = 100
 _G.NSize = 100
 
--- hey retard make hitbox use _G.FPSTargetList(the same way you did it with esp where it only happens if SAPTYpe == 4)
-
--- add a thing to detect custom character.
+WalkspeedOff = {2377868063, 6172932937, 292439477}
 
 function tycoonbutton(all)
 _G.NotRunning = false
@@ -58,6 +57,39 @@ game:GetService("Players").LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new
 _G.GiverFound = false
 end
 _G.NotRunning = true
+end
+
+function PhantomForces()
+for i, v in pairs(getgc(true)) do
+if typeof(v) == 'table' and rawget(v, 'getbodyparts') then
+_G.CharacterTable = v.getbodyparts
+end
+end
+
+for i, v in pairs(game:GetService("Players"):GetChildren()) do
+if _G.CharacterTable(v) and typeof(_G.CharacterTable(v)) == 'table' then
+v.Character = _G.CharacterTable(v).rootpart.Parent
+end
+end
+end
+
+function BadBusiness()
+for i, v in pairs(getgc(true)) do
+if typeof(v) == "table" and rawget(v, "InitProjectile") then
+if v.TS then
+_G.CharacterTable = v
+end
+end
+end
+
+
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+spawn(function()
+repeat wait() until _G.CharacterTable ~= nil
+v.Character = _G.CharacterTable.TS.Characters:GetCharacter(v).Body
+v.Character.Chest.Name = "HumanoidRootPart"
+end)
+end
 end
 
 function upvalue(change, new)
@@ -120,7 +152,6 @@ for i,v in pairs(getreg()) do
     if typeof(v) == "table" then
             for _,b in pairs(v) do
             if tostring(_) == tostring(change) then
-            print('bruh')
             if _ == tostring(change) then
             print(_)
             v[tostring(_)] = tostring(new)
@@ -134,7 +165,6 @@ for i,v in pairs(getgc(true)) do
     if typeof(v) == "table" then
             for _,b in pairs(v) do
             if tostring(_) == tostring(change) then
-            print('bruh')
             if _ == tostring(change) then
             print(_)
             v[tostring(_)] = tostring(new)
@@ -237,61 +267,70 @@ _G.R15 = true
 elseif game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Left Arm") then
 _G.R15 = false
 end
-wait()
 spawn(function()
 if _G.SAPType ~= 4 then
+if _G.R15 == false then
+local Square = Drawing.new("Quad")
 repeat
 local Point0, Visible0 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character.HumanoidRootPart.Position.x + 0, v.Character.HumanoidRootPart.Position.y + 0, v.Character.HumanoidRootPart.Position.z + 0))
-if _G.R15 == false then
-_G.Point1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Right Arm"].Position.x + 0, v.Character["Right Arm"].Position.y + 2, v.Character["Right Arm"].Position.z + 0))
-_G.Point2 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Right Arm"].Position.x + 0, v.Character["Right Arm"].Position.y - 4, v.Character["Right Arm"].Position.z + 0))
-_G.Point3 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Left Arm"].Position.x + 0, v.Character["Left Arm"].Position.y + 2, v.Character["Left Arm"].Position.z + 0))
-_G.Point4 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Left Arm"].Position.x + 0, v.Character["Left Arm"].Position.y - 4, v.Character["Left Arm"].Position.z + 0))
-elseif _G.R15 == true then
-_G.Point1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["RightLowerArm"].CFrame.x + 0, v.Character["RightLowerArm"].CFrame.y + 2, v.Character["RightLowerArm"].CFrame.z + 0))
-_G.Point2 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["RightLowerArm"].CFrame.x + 0, v.Character["RightLowerArm"].CFrame.y - 4, v.Character["RightLowerArm"].CFrame.z + 0))
-_G.Point3 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["LeftLowerArm"].CFrame.x + 0, v.Character["LeftLowerArm"].CFrame.y + 2, v.Character["LeftLowerArm"].CFrame.z + 0))
-_G.Point4 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["LeftLowerArm"].CFrame.x + 0, v.Character["LeftLowerArm"].CFrame.y - 4, v.Character["LeftLowerArm"].CFrame.z + 0))
-end
-local Square = Drawing.new("Quad")
+local Point1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Right Arm"].Position.x + 0, v.Character["Right Arm"].Position.y + 2, v.Character["Right Arm"].Position.z + 0))
+local Point2 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Right Arm"].Position.x + 0, v.Character["Right Arm"].Position.y - 4, v.Character["Right Arm"].Position.z + 0))
+local Point3 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Left Arm"].Position.x + 0, v.Character["Left Arm"].Position.y + 2, v.Character["Left Arm"].Position.z + 0))
+local Point4 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["Left Arm"].Position.x + 0, v.Character["Left Arm"].Position.y - 4, v.Character["Left Arm"].Position.z + 0))
 Square.Visible = Visible0
-Square.PointA = Vector2.new(_G.Point2.x, _G.Point2.y)
-Square.PointB = Vector2.new(_G.Point1.x, _G.Point1.y)
-Square.PointC = Vector2.new(_G.Point3.x, _G.Point3.y)
-Square.PointD = Vector2.new(_G.Point4.x, _G.Point4.y)
+Square.PointA = Vector2.new(Point2.x, Point2.y)
+Square.PointB = Vector2.new(Point1.x, Point1.y)
+Square.PointC = Vector2.new(Point3.x, Point3.y)
+Square.PointD = Vector2.new(Point4.x, Point4.y)
 Square.Color = Color3.fromRGB(255, 255, 255)
 Square.Filled = false
 Square.Transparency = 1
 wait()
-Square:Remove()
 until _G.ESPTog == false
+Square:Remove()
 else
+local Square = Drawing.new("Quad")
 repeat
-local worldPoint = v.Head.Position
-local vector, Visible1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(worldPoint)
+local Point0, Visible0 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character.HumanoidRootPart.Position.x + 0, v.Character.HumanoidRootPart.Position.y + 0, v.Character.HumanoidRootPart.Position.z + 0))
+local Point1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["RightLowerArm"].CFrame.x + 0, v.Character["RightLowerArm"].CFrame.y + 2, v.Character["RightLowerArm"].CFrame.z + 0))
+local Point2 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["RightLowerArm"].CFrame.x + 0, v.Character["RightLowerArm"].CFrame.y - 4, v.Character["RightLowerArm"].CFrame.z + 0))
+local Point3 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["LeftLowerArm"].CFrame.x + 0, v.Character["LeftLowerArm"].CFrame.y + 2, v.Character["LeftLowerArm"].CFrame.z + 0))
+local Point4 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(Vector3.new(v.Character["LeftLowerArm"].CFrame.x + 0, v.Character["LeftLowerArm"].CFrame.y - 4, v.Character["LeftLowerArm"].CFrame.z + 0))
+Square.Visible = Visible0
+Square.PointA = Vector2.new(Point2.x, Point2.y)
+Square.PointB = Vector2.new(Point1.x, Point1.y)
+Square.PointC = Vector2.new(Point3.x, Point3.y)
+Square.PointD = Vector2.new(Point4.x, Point4.y)
+Square.Color = Color3.fromRGB(255, 255, 255)
+Square.Filled = false
+Square.Transparency = 1
+wait()
+until _G.ESPTog == false
+Square:Remove()
+end
+else
 local Square = Drawing.new("Square")
-Square.Visible = Visible1
-Square.Position = Vector2.new(vector.x, vector.y)
 Square.Color = Color3.fromRGB(255, 255, 255)
 Square.Size = Vector2.new(20, 20)
 Square.Filled = true
 Square.Transparency = 1
+repeat
+local vector, Visible1 = game:GetService("Workspace").CurrentCamera:WorldToScreenPoint(v.Head.Position)
+Square.Visible = Visible1
+Square.Position = Vector2.new(vector.x, vector.y)
 wait()
-Square:Remove()
 until _G.ESPTog == false
+Square:Remove()
 end
 end)
 else
 if _G.SAPType == 4 then
-local individualfoldersforespshit = Instance.new("Folder")
-individualfoldersforespshit.Name = v.Name..'1'
-individualfoldersforespshit.Parent = game.CoreGui
 repeat wait() until v and v:FindFirstChild('HumanoidRootPart') or v:FindFirstChild("Head")
 for b,n in pairs (v:GetChildren()) do
 if n.Name == "HumanoidRootPart" or n.Name == "Head" then
 local a = Instance.new("BoxHandleAdornment")
 a.Name = v.Name
-a.Parent = individualfoldersforespshit
+a.Parent = _G.individualfoldersforespshit
 a.Adornee = n
 a.AlwaysOnTop = true
 a.ZIndex = 10
@@ -302,16 +341,13 @@ end
 end
 else
 spawn(function()
-if v.Character and v.Name ~= game:GetService("Players").LocalPlayer.Name and not game.CoreGui:FindFirstChild(v.Name..'1') then
-local individualfoldersforespshit = Instance.new("Folder")
-individualfoldersforespshit.Name = v.Name..'1'
-individualfoldersforespshit.Parent = game.CoreGui
-repeat wait(1) until v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Character:FindFirstChild('Humanoid')
+if v.Character and v.Name ~= game:GetService("Players").LocalPlayer.Name then
+repeat wait() until _G.CharacterTable ~= nil and v.Character ~= nil and v.Character:FindFirstChild('HumanoidRootPart') or v.Character and v.Character:FindFirstChild('HumanoidRootPart')
 for b,n in pairs (v.Character:GetChildren()) do
-if n.Name == "HumanoidRootPart" then
+if n.Name == "HumanoidRootPart" or n.Name == "Head" then
 local a = Instance.new("BoxHandleAdornment")
 a.Name = v.Name
-a.Parent = individualfoldersforespshit
+a.Parent = _G.individualfoldersforespshit
 a.Adornee = n
 a.AlwaysOnTop = true
 a.ZIndex = 10
@@ -330,6 +366,9 @@ end
 function ESP(toggle)
 repeat wait() until _G.FPSTargetList ~= nil or _G.SAPType == 4
 if toggle == true then
+_G.individualfoldersforespshit = Instance.new("Folder")
+_G.individualfoldersforespshit.Name = "ESPFolder"
+_G.individualfoldersforespshit.Parent = game.CoreGui
 if _G.SAPType == 4 then
 for _,b in pairs(game:GetService("Workspace"):GetDescendants()) do
 if b:FindFirstChild("HumanoidRootPart") or b:FindFirstChild("Head") then
@@ -346,11 +385,7 @@ ESPTHING(game:GetService("Players")[tostring(v)])
 end
 end
 elseif toggle == false then
-for i,v in pairs(game.CoreGui:GetChildren()) do
-if string.sub(v.Name, -1) == '1' then
-v:Destroy()
-end
-end
+game.CoreGui.ESPFolder:Destroy()
 end
 end
 
@@ -425,7 +460,9 @@ end)
 end
 
 function WalkSpeedChange()
+if game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid') and _G.WalkspeedToggle ~= false then
 game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid').WalkSpeed = _G.Walkspeed
+end
 end
 
 game:GetService("Players").LocalPlayer:GetMouse().Button2Down:Connect(function(input)
@@ -435,10 +472,28 @@ game:GetService("Players").LocalPlayer:GetMouse().Button2Up:Connect(function(inp
     Aimbot(false)
 end)
 
+pcall(function()
+for i,v in pairs(WalkspeedOff) do
+if game.PlaceId == tonumber(v) then
+_G.WalkspeedToggle = false
+end
+end
+end)
+
 spawn(function()
 while true do
 _G.FPSTargetList = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
+if tonumber(game.PlaceId) == 3233893879 then
+repeat wait() until _G.CharacterTable ~= nil
+if _G.CharacterTable.TS.Teams:ArePlayersFriendly(v, game:GetService("Players").LocalPlayer) then
+table.insert(_G.FPSTargetList, v.Name)
+elseif not _G.CharacterTable.TS.Teams:ArePlayersFriendly(v, game:GetService("Players").LocalPlayer) and _G.SAPType == 2 then
+table.insert(_G.FPSTargetList, v.Name)
+elseif v.Name ~= game:GetService("Players").LocalPlayer.Name and _G.SAPType == 3 then
+table.insert(_G.FPSTargetList, v.Name)
+end
+else
 if v.Name ~= game:GetService("Players").LocalPlayer.Name and v.Team == game:GetService("Players").LocalPlayer.Team and _G.SAPType == 1 then
 table.insert(_G.FPSTargetList, v.Name)
 elseif v.Team ~= game:GetService("Players").LocalPlayer.Team and _G.SAPType == 2 then
@@ -447,14 +502,27 @@ elseif v.Name ~= game:GetService("Players").LocalPlayer.Name and _G.SAPType == 3
 table.insert(_G.FPSTargetList, v.Name)
 end
 end
+end
 wait(1)
+end
+end)
+
+spawn(function()
+while wait(5) do
+if tonumber(game.PlaceId) == 292439477 then
+PhantomForces()
+elseif tonumber(game.PlaceId) == 3233893879 then
+BadBusiness()
+end
 end
 end)
 
 spawn(function()
 while true do
 NPCCheck()
+if _G.Player and _G.Player:FindFirstChildOfClass('Humanoid') and _G.WalkspeedToggle ~= false then
 _G.Player:FindFirstChildOfClass("Humanoid"):GetPropertyChangedSignal("WalkSpeed"):Connect(WalkSpeedChange)
+end
 wait(3)
 end
 end)
@@ -502,6 +570,7 @@ end)
 end
 
 pcall(function()
+if _G.WalkspeedToggle ~= false then
 local Player = game:GetService('Players').LocalPlayer
 local Humanoid = Player.Character:FindFirstChildOfClass('Humanoid')
 local mt = getrawmetatable(game)
@@ -509,9 +578,10 @@ local index = mt.__index
 local newindex = mt.__newindex
 setreadonly(mt, false)
 
-mt.__index = newcclosure(function(i, v) if v:lower() == 'walkspeed' or v:lower() == 'WalkSpeed' then return 16 end return index(i, v) end)
+mt.__index = newcclosure(function(i, v) if _G.Player:FindFirstChildOfClass('Humanoid') and v:lower() == 'walkspeed' or v:lower() == 'WalkSpeed' then return 16 end return index(i, v) end)
 
 setreadonly(mt, true)
+end
 end)
 end)
 
@@ -2697,12 +2767,10 @@ do -- Example UI
 		_G.ESPTog = tingthing
         if _G.ESPTog == true then
         repeat ESP(true)
-        wait(3)
-        for i,v in pairs(game.CoreGui:GetChildren()) do
-        if string.sub(v.Name, -1) == '1' then
-        v:Destroy()
-        end
-        end
+        wait(7)
+        _G.ESPTog = false
+        ESP(false)
+        _G.ESPTog = true
         until _G.ESPTog ~= true
         elseif _G.ESPTog == false then
         ESP(false)
@@ -2777,14 +2845,22 @@ end
 		})
 		_G.PTS:Set(15)
 		
+		pcall(function()
+		if _G.WalkspeedToggle ~= false then
 		local walks = Tab4:AddSlider("Walk Speed Slider", function(walk)
+	    if _G.Player:FindFirstChildOfClass('Humanoid') and _G.WalkspeedToggle ~= false then
         _G.Walkspeed = walk
         WalkSpeedChange()
+        end
         end, {
 			["min"] = 16,
 			["max"] = 1000,
 		})
 		walks:Set(0)
+		else
+	    local walks = Tab4:AddSlider("Walk Speed Slider (Disabled For This Game)", function() end)
+		end
+        end)
 		
 		Tab4:AddSwitch("Player Tween Toggle", function(Tween)
         _G.PlayerTween = Tween
