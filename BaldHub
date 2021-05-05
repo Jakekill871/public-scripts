@@ -1,5 +1,4 @@
 -- games I recommend. KAT, Metaverse Shoot Out, Phantom Forces, Bad Buissness, Big Paintball, Typical Tycoons(God Tycoon, Anime Tycoon, ETC), Any RPG(Ex. Blox Piece, King Legacy, Swordburst 2, ETC)
--- Added support to a few games (Phantom Forces and Bad Business)
 
 _G.Distance = -3
 _G.SAPType = 3
@@ -11,7 +10,7 @@ _G.NPCTweenSpeed = 15
 _G.PSize = 100
 _G.NSize = 100
 
-WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691}
+WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691, 301549746}
 
 function tycoonbutton(all)
 _G.NotRunning = false
@@ -175,6 +174,171 @@ for i,v in pairs(getgc(true)) do
 end
 end
 end
+end
+end
+
+function GunMods()
+pcall(function()
+if tonumber(game.PlaceId) == 292439477 then
+c = hookfunction(getrenv().math.random, newcclosure(function(a, b, ...)
+    if a and b then
+        b = a
+    else
+        return 0
+    end
+    return c(a, b, ...)
+end))
+end
+end)
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("Venyx UI Lib(Public), Scripts by Jakekill871", 5013109572)
+
+-- themes
+local themes = {
+Background = Color3.fromRGB(24, 24, 24),
+Glow = Color3.fromRGB(0, 0, 0),
+Accent = Color3.fromRGB(10, 10, 10),
+LightContrast = Color3.fromRGB(20, 20, 20),
+DarkContrast = Color3.fromRGB(14, 14, 14),  
+TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+-- first page
+local page = venyx:addPage("Phantom Forces", 5012544693)
+local section1 = page:addSection("Toggles")
+local section2 = page:addSection("Sliders")
+
+section1:addToggle("Inf Ammo Toggle", nil, function(toggle)
+if toggle == true then
+repeat
+for i,v in pairs(getreg()) do
+if typeof(v) == "table" and rawget(v, "magsize") then
+v.magsize = math.huge
+v.sparerounds = math.huge
+end
+end
+until toggled ~= true
+end
+end)
+
+section1:addToggle("Automatic Guns Toggle", nil, function(toggle)
+if toggle == true then
+for i,v in pairs(getreg()) do
+if typeof(v) == "table" and rawget(v, "firemodes") then
+v.chamber = true
+v.firemodes = { true, 1 }
+end
+end
+else
+for i,v in pairs(getreg()) do
+if typeof(v) == "table" and rawget(v, "firemodes") then
+v.chamber = false
+v.firemodes = { false, 1 }
+end
+end
+end
+end)
+
+section2:addSlider("FireRate", 0, 1, 500, function(value)
+for i,v in pairs(getreg()) do
+if typeof(v) == "table" and rawget(v, "firerate") then
+v.firerate = value
+end
+end
+end)
+
+local page2 = venyx:addPage("Big Paintball", 5012544693)
+local section3 = page2:addSection("Gun Mods")
+
+section3:addToggle("Gun Mods", nil, function(toggle)
+if toggle == true then
+_G.GetGC = true
+upvalue("shotrate", 0.0000001)
+upvalue("automatic", true)
+upvalue("velocity", 5000000)
+else
+_G.GetGC = true
+upvalue("shotrate", 0.125)
+upvalue("automatic", false)
+upvalue("velocity", 500)
+end
+end)
+
+local page3 = venyx:addPage("Shoot Out", 5012544693)
+local section4 = page3:addSection("Gun Mods")
+
+section4:addToggle("Gun Mods", nil, function(toggle)
+if toggle == true then
+for i,v in pairs(getgc(true)) do 
+    if typeof(v) == "table" and rawget(v, "MAX_AMMO") then
+            v.MAX_AMMO = 123123123123
+            v.RECOIL_STRENGTH = 0
+            v.SPREAD = 0
+            v.AUTOMATIC = true
+            v.MAX_DAMAGE = 99999
+    end
+end
+else
+for i,v in pairs(getgc(true)) do 
+    if typeof(v) == "table" and rawget(v, "MAX_AMMO") then
+            v.MAX_AMMO = 40
+            v.RECOIL_STRENGTH = 4
+            v.SPREAD = 3
+            v.AUTOMATIC = false
+            v.MAX_DAMAGE = 100
+    end
+end
+end
+end)
+
+local page4 = venyx:addPage("Jailbreak", 5012544693)
+local section5 = page4:addSection("Gun Mods")
+
+section5:addToggle("Gun Mods", nil, function(toggle)
+if toggle == true then
+for i,v in pairs(getgc(true)) do 
+    if typeof(v) == "table" and rawget(v, "FireFreq") then
+            v.FireFreq = 9
+            v.FireAuto = true
+            v.MagSize = math.huge
+            v.Spread = 0
+            v.CamShakeMagnitude = 0
+    end
+end
+else
+for i,v in pairs(getgc(true)) do 
+    if typeof(v) == "table" and rawget(v, "FireFreq") then
+            v.FireFreq = 5
+            v.FireAuto = false
+            v.MagSize = 8
+            v.Spread = 3.25
+            v.CamShakeMagnitude = 150
+    end
+end
+end
+end)
+
+-- second page
+local theme = venyx:addPage("Theme Changer", 5012544693)
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+colors:addColorPicker(theme, color, function(color3)
+venyx:setTheme(theme, color3)
+end)
+end
+
+if tonumber(game.PlaceId) == 292439477 then
+venyx:SelectPage(venyx.pages[1], true)
+elseif tonumber(game.PlaceId) == 3527629287 then 
+venyx:SelectPage(venyx.pages[2], true)
+elseif tonumber(game.PlaceId) == 4738545896 then 
+venyx:SelectPage(venyx.pages[3], true)
+elseif tonumber(game.PlaceId) == 606849621 then 
+venyx:SelectPage(venyx.pages[4], true)
+else
+venyx:SelectPage(venyx.pages[5], true)
 end
 end
 
@@ -2607,7 +2771,7 @@ end
 do -- Example UI
 	local Window = library:AddWindow("Bald Hub.", {
 		main_color = Color3.fromRGB(255, 170, 0),
-		min_size = Vector2.new(480, 310),
+		min_size = Vector2.new(480, 335),
 		toggle_key = Enum.KeyCode.RightShift,
 		can_resize = true,
 	})
@@ -2724,7 +2888,7 @@ do -- Example UI
         _G.SAPType = 2
 		elseif SAP == "Everyone But You" then
 		_G.SAPType = 3
-		elseif SAP == "Everyone(for games like pf)" then
+		elseif SAP == "Everyone(If Custom Characters)" then
 		_G.SAPType = 4
 		end
 		end)
@@ -2763,7 +2927,7 @@ do -- Example UI
 		HBT()
 		end)
 		
-		Tab3:AddSwitch("Player Esp Toggle", function(tingthing)
+		Tab3:AddSwitch("Player Esp Toggle (Use Drawing Lib in Strucid)", function(tingthing)
 		_G.ESPTog = tingthing
         if _G.ESPTog == true then
         repeat ESP(true)
@@ -2781,12 +2945,16 @@ do -- Example UI
         _G.AimbotToggled = AimTog
 		end)
 		
-		Tab3:AddSwitch("Use Drawing Lib(For Aimbot, Laggy)", function(DL)
+		Tab3:AddSwitch("Use Drawing Lib(For ESP, Laggy)", function(DL)
         _G.DrawingLib = DL
 		end)
 		
 		Tab3:AddSwitch("getgc (for upvalue stuff, not always needed)", function(GC)
         _G.GetGC = GC
+		end)
+		
+		Tab3:AddButton("Gun Hax GUI (Venyx UI has many games supported)", function()
+		GunMods()
 		end)
 		
 		Tab3:AddButton("Print all Upvalues", function()
