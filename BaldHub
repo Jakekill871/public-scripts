@@ -10,7 +10,7 @@ _G.NPCTweenSpeed = 15
 _G.PSize = 100
 _G.NSize = 100
 
-WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691, 301549746, 2218671952}
+WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691, 301549746, 4651779470}
 
 function tycoonbutton(all)
 _G.NotRunning = false
@@ -500,7 +500,6 @@ a.AlwaysOnTop = true
 a.ZIndex = 10
 a.Size = Vector3.new(5, 7, 3)
 a.Transparency = 0.1
-a.Color = Color3.new(255, 255, 255)
 end
 end
 else
@@ -652,7 +651,7 @@ if tonumber(game.PlaceId) == 3233893879 then
 repeat wait() until _G.CharacterTable ~= nil
 if _G.CharacterTable.TS.Teams:ArePlayersFriendly(v, game:GetService("Players").LocalPlayer) then
 table.insert(_G.FPSTargetList, v.Name)
-elseif not _G.CharacterTable.TS.Teams:ArePlayersFriendly(v, game:GetService("Players").LocalPlayer) and _G.SAPType == 2 then
+elseif _G.CharacterTable.TS.Teams:ArePlayersFriendly(v, game:GetService("Players").LocalPlayer) ~= true and _G.SAPType == 2 then
 table.insert(_G.FPSTargetList, v.Name)
 elseif v.Name ~= game:GetService("Players").LocalPlayer.Name and _G.SAPType == 3 then
 table.insert(_G.FPSTargetList, v.Name)
@@ -2896,7 +2895,7 @@ do -- Example UI
 		_G.Dropdown2:Add("Your Team")
 		_G.Dropdown2:Add("Other Team")
 		_G.Dropdown2:Add("Everyone But You")
-		_G.Dropdown2:Add("Everyone(for games like pf)")
+		_G.Dropdown2:Add("Everyone(If Custom Characters)")
 		
 		Tab3:AddTextBox("Upvalue Name(Ex. Ammo)/Value(Ex. 19)", function(UN)
 		_G.ChangeValue = UN
