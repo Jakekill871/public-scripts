@@ -1,0 +1,35 @@
+while wait() do
+if _G.KillAuraToggle == true then
+pcall(function()
+if _G.StorageSwap == true then
+local args = {
+    [1] = "Storage" .. _G.StorageSlot
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.StorageRemote:FireServer(unpack(args))
+wait(tonumber("0.0" .. _G.WaitTime))
+end
+end)
+
+pcall(function()
+if _G.StorageSwap == true then
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+if v.ClassName == "Tool" then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+end
+end
+end
+end)
+
+pcall(function()
+local args = {
+    [1] = false,
+    [2] = game:GetService("Players").LocalPlayer:GetMouse().Hit.p,
+    [3] = game:GetService("Players").LocalPlayer:GetMouse().Hit
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.BladeCombatRemote:FireServer(unpack(args))
+wait()
+end)
+end
+end
