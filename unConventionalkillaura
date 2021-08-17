@@ -1,0 +1,45 @@
+pcall(function()
+a = hookfunction(wait, function(b) if b ~= 0 and tostring(getcallingscript(a)) == "LocalScript" then return a() end return a(b) end)
+end)
+
+function hit()
+pcall(function()
+_G.Closest = nil
+_G.ClosestNum = math.huge
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+if v.Name ~= game.Players.LocalPlayer.Name then
+if tonumber((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).magnitude) < tonumber(_G.ClosestNum) then
+_G.Closest = tostring(v)
+_G.ClosestNum = tonumber((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).magnitude)
+_G.ClosestChar = v
+end
+end
+end
+end)
+
+pcall(function()
+local args = {
+    [1] = _G.ClosestChar.Character.Humanoid,
+    [2] = 6,
+    [3] = 0
+}
+
+game:GetService("ReplicatedStorage").Punch:FireServer(unpack(args))
+end)
+
+pcall(function()
+for i=1,20 do
+local args = {
+    [1] = _G.ClosestChar.Character.Humanoid,
+    [2] = 6,
+    [3] = i
+}
+
+game:GetService("ReplicatedStorage").Punch:FireServer(unpack(args))
+end
+end)
+end
+
+while wait(0.1) do
+hit()
+end
