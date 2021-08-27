@@ -3,7 +3,7 @@
 _G.SupportedGames = {606849621, 292439477, 3978370137} -- phantom forces, gpo, jailbreak.
 _G.DrawingLib = true -- just a toggle for the drawing lib, you can start with it as false if your exploit doesn't have a drawing lib(ex. dansploit)
 _G.maincolor = Color3.fromRGB(255, 170, 0)
-_G.WalkspeedOff = {2377868063, 6172932937, 292439477, 4716045691, 301549746, 4651779470, 3978370137} -- games that walkspeed might get you banned on.
+_G.WalkspeedOff = {2039118386, 2377868063, 6172932937, 292439477, 4716045691, 301549746, 4651779470, 3978370137} -- games that walkspeed might get you banned on.
 _G.Distance = -3
 _G.SAPType = 3
 _G.Player = game:GetService("Players").LocalPlayer.Character
