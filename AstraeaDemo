@@ -3816,13 +3816,6 @@ spawn(function()
         _G.AutoBlock = value6
         end)
 		
-		Tab:AddSwitch("Walk on Water(Also Gets you above water)", function(value4)
-        _G.value4 = value4
-        if value4 == true then
-        water()
-        end
-		end)
-		
 		Tab:AddSwitch("Walkspeed", function(value2)
         if value2 == true then
         _G.value2 = true
