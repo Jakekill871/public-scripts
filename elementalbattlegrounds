@@ -1,3 +1,4 @@
+_G.AttackKey = "E" -- default is "E"
 local mt = getrawmetatable(game)
 make_writeable(mt)
 
@@ -5,9 +6,9 @@ local namecall = mt.__namecall
 
 mt.__namecall = newcclosure(function(self, ...)
     local method = getnamecallmethod()
-    local args = {...} --gets all arguments
+    local args = {...}
 
-    if method == "FireServer" and args[1] == "Flip" then --check if the method firing is FireSerer (aka remote event) and if the first argument is Kick
+    if method == "FireServer" and args[1] == "Flip" then
         return "flop"
     end
     return namecall(self, ...)
