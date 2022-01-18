@@ -1,17 +1,12 @@
 _G.AttackKey = "E" -- default is "E"
-local mt = getrawmetatable(game)
-make_writeable(mt)
+local OldNameCall = "yourmom"
 
-local namecall = mt.__namecall
-
-mt.__namecall = newcclosure(function(self, ...)
-    local method = getnamecallmethod()
-    local args = {...}
-
-    if method == "FireServer" and args[1] == "Flip" then
+OldNameCall = hookmetamethod(game, "__namecall", function(self, ...)
+    local Args = {...}
+    if getnamecallmethod() == "FireServer" and Args[1] == "Flip" then
         return "flop"
     end
-    return namecall(self, ...)
+    return OldNameCall(self, ...)
 end)
 
 local hrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
@@ -28,7 +23,7 @@ spawn(function()
 repeat newhrp.CFrame = CFrame.new(curpos.x, curpos.y, curpos.z) wait() until _G.off
 end)
 wait(0.1)
-hrp.CFrame = CFrame.new(-1533, 38, 957)
+hrp.CFrame = game:GetService("Workspace").Map.YellowDecals.Part.CFrame * CFrame.new(0, 0, -8)
 wait(0.05)
 hrp.Name = "hrpp"
 newhrp.Name = "HumanoidRootPart"
