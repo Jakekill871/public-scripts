@@ -1,0 +1,52 @@
+local mt = getrawmetatable(game)
+make_writeable(mt)
+
+local namecall = mt.__namecall
+
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...} --gets all arguments
+
+    if method == "FireServer" and args[1] == "Flip" then --check if the method firing is FireSerer (aka remote event) and if the first argument is Kick
+        return "flop"
+    end
+    return namecall(self, ...)
+end)
+
+local hrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Name = "hrpp"
+local newhrp = hrp:Clone()
+newhrp.Parent = hrp.Parent
+newhrp.Name = "HumanoidRootPart"
+
+function swap()
+if hrp.Name == "HumanoidRootPart" then
+_G.off = false
+local curpos = hrp.CFrame
+spawn(function()
+repeat newhrp.CFrame = CFrame.new(curpos.x, curpos.y, curpos.z) wait() until _G.off
+end)
+wait(0.1)
+hrp.CFrame = CFrame.new(-1533, 38, 957)
+wait(0.05)
+hrp.Name = "hrpp"
+newhrp.Name = "HumanoidRootPart"
+wait()
+_G.off = true
+elseif newhrp.Name == "HumanoidRootPart" then
+newhrp.Name = "hrppp"
+hrp.Name = "HumanoidRootPart"
+end
+end
+
+swap()
+swap()
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode[_G.AttackKey] then
+        swap()
+        wait(0.3)
+        mouse1click()
+        swap()
+    end
+end)
