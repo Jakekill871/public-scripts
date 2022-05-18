@@ -1,0 +1,5 @@
+getgenv().hrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Name = "hrpp"
+getgenv().newhrp = getgenv().hrp:Clone()
+getgenv().newhrp.Parent = getgenv().hrp.Parent
+getgenv().newhrp.Name = "HumanoidRootPart"
