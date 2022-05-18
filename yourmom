@@ -3,3 +3,61 @@ game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Name = "hrpp"
 getgenv().newhrp = getgenv().hrp:Clone()
 getgenv().newhrp.Parent = getgenv().hrp.Parent
 getgenv().newhrp.Name = "HumanoidRootPart"
+
+function swap()
+spawn(function()
+if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("hrpp") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("hrppp") then
+loadstring('getgenv().hrp:Destroy()')()
+loadstring('getgenv().newhrp:Destroy()')()
+loadstring('getgenv().hrp = nil')()
+loadstring('getgenv().newhrp = nil')()
+loadstring('getgenv().hrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart')()
+loadstring('game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Name = "hrpp"')()
+loadstring('getgenv().newhrp = getgenv().hrp:Clone()')()
+loadstring('getgenv().newhrp.Parent = getgenv().hrp.Parent')()
+loadstring('getgenv().newhrp.Name = "HumanoidRootPart"')()
+loadstring('spawn(function() wait(3) swap() end)')()
+end
+end)
+if getgenv().hrp.Name == "HumanoidRootPart" then
+_G.invisgodstuffoff = false
+local curpos = getgenv().hrp.CFrame
+spawn(function()
+repeat getgenv().newhrp.CFrame = CFrame.new(curpos.x, curpos.y, curpos.z) wait() until _G.invisgodstuffoff
+end)
+wait(0.1)
+getgenv().hrp.CFrame = CFrame.new(99999, 99999, 99999)
+wait(0.05)
+getgenv().hrp.Name = "hrpp"
+getgenv().newhrp.Name = "HumanoidRootPart"
+wait()
+_G.invisgodstuffoff = true
+elseif getgenv().newhrp.Name == "HumanoidRootPart" then
+getgenv().newhrp.Name = "hrppp"
+getgenv().hrp.Name = "HumanoidRootPart"
+end
+end
+
+swap()
+swap()
+
+game:GetService("UserInputService").InputEnded:Connect(function(key, v)
+	if key.UserInputType == Enum.UserInputType.MouseButton1 and game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+	wait(0.3)
+	local curposhrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+        swap()
+        wait(1)
+        swap()
+        spawn(function()
+        wait(2)
+        swap()
+        swap()
+        for i=1,20 do
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(curposhrp.x, curposhrp.y, curposhrp.z)
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(1, 1, 1)
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.RotVelocity = Vector3.new(1, 1, 1)
+        game:service'RunService'.Stepped:wait(0)
+        end
+        end)
+	end
+end)
