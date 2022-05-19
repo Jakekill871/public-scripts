@@ -46,10 +46,10 @@ game:GetService("UserInputService").InputEnded:Connect(function(key, v)
 	wait(0.3)
 	local curposhrp = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
         swap()
-        wait(1)
+        wait(tonumber(_G.waittime1))
         swap()
         spawn(function()
-        wait(2)
+        wait(tonumber(_G.waittime2))
         swap()
         swap()
         for i=1,20 do
